@@ -5,7 +5,7 @@ on:
     branches: [ "main", "master" ]
   pull_request:
     branches: [ "main", "master" ]
-  workflow_dispatch: # Allows you to trigger the build manually
+  workflow_dispatch: 
 
 jobs:
   build:
@@ -35,4 +35,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Mod-Artifact
-          path: build/libs/*.jar 
+          path: |
+                build/libs/*.jar
+                !build/libs/*-dev.jar
+                !build/libs/*-sources.jar
