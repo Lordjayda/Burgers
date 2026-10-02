@@ -58,6 +58,11 @@ jar {
 	}
 }
 
+// fixes some problems
+tasks.named('processResources', ProcessResources) {
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
 // configure the maven publication
 publishing {
 	publications {

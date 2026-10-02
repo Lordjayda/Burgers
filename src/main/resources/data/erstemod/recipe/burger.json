@@ -1,19 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "Burgers",
-  "key": {
-    "A": "erstemod:top_bun",
-    "B": "erstemod:tomato_slice",
-    "C": "erstemod:patty",
-    "D": "erstemod:lettuce",
-    "E": "erstemod:bottom_bun"
-  },
-  "pattern": [
-    " A ",
-    "BCD",
-    " E "
+  "type": "erstemod:burgering",
+  "buns": [
+    "erstemod:bottom_bun",
+    "erstemod:top_bun"
+  ],
+  "sauces": [],
+  "ingredients": [
+    "erstemod:tomato_slice",
+    "erstemod:patty",
+    "erstemod:lettuce"
   ],
   "result": {
-    "id": "erstemod:burger"
+    "id": "erstemod:burger",
+    "count": 1
   }
 }

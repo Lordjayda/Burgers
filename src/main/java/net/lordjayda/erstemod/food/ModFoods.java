@@ -13,6 +13,7 @@ public class ModFoods {
     public static final FoodProperties patty =  new FoodProperties.Builder().nutrition(10).saturationModifier(0.3f).build();
     public static final FoodProperties tomato =  new FoodProperties.Builder().nutrition(3).saturationModifier(0.3f).build();
     public static final FoodProperties tomato_slice =  new FoodProperties.Builder().nutrition(2).saturationModifier(0.2f).build();
+    public static final FoodProperties fries = new FoodProperties.Builder().nutrition(3).saturationModifier(0.1f).build();
     public static final FoodProperties salad =  new FoodProperties.Builder().nutrition(3).saturationModifier(0.5f).build();
     //kopieren und nutrition und saturation anpassen und in moditems registrieren
 
