@@ -2,48 +2,136 @@ package net.lordjayda.erstemod.menu.custom;
 
 import net.lordjayda.erstemod.Erstemod;
 import net.lordjayda.erstemod.crafting.ModRecipeType;
+import net.lordjayda.erstemod.item.ModItems;
 import net.lordjayda.erstemod.menu.ModMenuTypes;
 import net.lordjayda.erstemod.recipe.BurgeringRecipe;
 import net.lordjayda.erstemod.recipe.BurgeringRecipeInput;
 import net.lordjayda.erstemod.tags.ModTags;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUseAnimation;
+import net.minecraft.world.item.component.Consumable;
+import net.minecraft.world.item.component.ItemLore;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import javax.xml.crypto.Data;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class AssemblerMenu extends AbstractContainerMenu {
     private final Container inventory;
-    private Player player;
     @Override
     public void slotsChanged(Container container) {
+        boolean canCraft = !inventory.getItem(0).isEmpty() && !inventory.getItem(8).isEmpty();
+
         if (container == this.inventory && inventory instanceof BlockEntity blockEntity) {
-            Level lvl = blockEntity.getLevel();
-            if (lvl instanceof ServerLevel lvls) {
-                BurgeringRecipeInput input = new BurgeringRecipeInput(
-                        List.of(inventory.getItem(0), inventory.getItem(8)),
-                        List.of(inventory.getItem(6), inventory.getItem(7)),
-                        List.of(inventory.getItem(1), inventory.getItem(2), inventory.getItem(3), inventory.getItem(4), inventory.getItem(5))
-                );
-                RecipeManager ra = lvls.recipeAccess();
-                Optional<RecipeHolder<BurgeringRecipe>> match =
-                        ra.getRecipeFor(ModRecipeType.BURGERING, input, lvls);
-                Erstemod.LOGGER.debug(String.valueOf(match.isPresent()));
-                if (match.isPresent()) {
-                    inventory.setItem(9, match.get().value().assemble(input));
-                } else {
-                    inventory.setItem(9, ItemStack.EMPTY);
+            if (canCraft) {
+                Level lvl = blockEntity.getLevel();
+                if (lvl instanceof ServerLevel lvls) {
+                    BurgeringRecipeInput input = new BurgeringRecipeInput(
+                            List.of(inventory.getItem(0), inventory.getItem(8)),
+                            List.of(inventory.getItem(6), inventory.getItem(7)),
+                            List.of(inventory.getItem(1), inventory.getItem(2), inventory.getItem(3), inventory.getItem(4), inventory.getItem(5))
+                    );
+                    RecipeManager ra = lvls.recipeAccess();
+                    Optional<RecipeHolder<BurgeringRecipe>> match =
+                            ra.getRecipeFor(ModRecipeType.BURGERING, input, lvls);
+                    Erstemod.LOGGER.debug(String.valueOf(match.isPresent()));
+                    if (match.isPresent()) {
+                        inventory.setItem(9, match.get().value().assemble(input));
+                    } else {
+                        ItemStack newBurger = new ItemStack(ModItems.BURGER);
+
+                        List<ItemStack> ingredientList = List.of(inventory.getItem(1), inventory.getItem(2), inventory.getItem(3), inventory.getItem(4), inventory.getItem(5));
+                        List<ItemStack> newIngredientList = new ArrayList<>();
+                        ingredientList.forEach(itemStack -> {
+                            if (!itemStack.isEmpty()) newIngredientList.add(itemStack);
+                        });
+
+                        List<ItemStack> sauceList = List.of(inventory.getItem(6), inventory.getItem(7));
+                        List<ItemStack> newSauceList = new ArrayList<>();
+                        sauceList.forEach(itemStack -> {
+                            if (!itemStack.isEmpty()) newSauceList.add(itemStack);
+                        });
+
+                        List<Component> tooltipList = new ArrayList<>();
+
+                        tooltipList.add(Component.translatable("item.erstemod.burger.ingredients").withColor(TextColor.WHITE).withStyle(ChatFormatting.UNDERLINE));
+                        if (!newIngredientList.isEmpty()) {
+                            newIngredientList.forEach(itemStack -> {
+                                tooltipList.add(itemStack.getDisplayName().plainCopy().withColor(TextColor.GRAY));
+                            });
+                        } else {
+                            tooltipList.add(Component.translatable("item.erstemod.burger.none").withColor(TextColor.GRAY));
+                        }
+                        tooltipList.add(Component.translatable("item.erstemod.burger.sauces").withColor(TextColor.WHITE).withStyle(ChatFormatting.UNDERLINE));
+                        if (!newSauceList.isEmpty()) {
+                            newSauceList.forEach(itemStack -> {
+                                tooltipList.add(itemStack.getDisplayName().plainCopy().withColor(TextColor.GRAY));
+                            });
+                        } else {
+                            tooltipList.add(Component.translatable("item.erstemod.burger.none").withColor(TextColor.GRAY));
+                        }
+
+
+                        int h = 0;
+                        int noi = 0;
+
+                        float s = 0;
+                        int nos = 0;
+                        //aggregate of ingredient nutrition / saturation -> h
+                        for (ItemStack item : newIngredientList) {
+                            noi ++;
+                            try {
+                                h += item.get(DataComponents.FOOD).nutrition();
+                                s += item.get(DataComponents.FOOD).saturation();
+                            } catch (NullPointerException _) {
+                            }
+                        }
+                        //aggregate of sauce nutrition / saturation -> s
+                        for (ItemStack item : newSauceList) {
+                            nos ++;
+                            try {
+                                h += item.get(DataComponents.FOOD).nutrition();
+                                s += item.get(DataComponents.FOOD).saturation();
+                            } catch (NullPointerException _) {
+                            }
+                        }
+
+                        int finH = (int) ((double) h /noi * ((1.2f*(noi*0.3f))+1));
+                        float finS = Math.min(s, 1f);
+                        newBurger.set(DataComponents.FOOD, new FoodProperties(finH,finS,false));
+                        newBurger.set(DataComponents.CONSUMABLE, new Consumable((1f+(float) h /10), ItemUseAnimation.EAT, SoundEvents.GENERIC_EAT,true,List.of()));
+
+                        tooltipList.add(Component.empty());
+                        tooltipList.add(Component.translatable("item.erstemod.burger.hunger").withColor(TextColor.WHITE).append(String.valueOf(finH)));
+                        tooltipList.add(Component.translatable("item.erstemod.burger.saturation").withColor(TextColor.WHITE).append(String.valueOf(finS)));
+
+                        newBurger.set(DataComponents.LORE, new ItemLore(
+                                tooltipList
+                        ));
+                        inventory.setItem(9,newBurger);
+
+                    }
                 }
+            } else {
+                inventory.setItem(9, ItemStack.EMPTY);
             }
         }
     }
@@ -55,7 +143,6 @@ public class AssemblerMenu extends AbstractContainerMenu {
     public AssemblerMenu(int containerId, Inventory inv, BlockEntity blockEntity) {
         super(ModMenuTypes.ASSEMBLER_MENU, containerId);
         this.inventory = ((Container) blockEntity);
-        this.player = inv.player;
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
@@ -297,7 +384,7 @@ public class AssemblerMenu extends AbstractContainerMenu {
                 return ItemStack.EMPTY;
             }
         } else {
-            System.out.println("Invalid slotIndex:" + pIndex);
+            Erstemod.LOGGER.debug("Invalid slotIndex:" + pIndex);
             return ItemStack.EMPTY;
         }
         // If stack size == 0 (the entire stack was moved) set slot contents to null
@@ -330,18 +417,18 @@ public class AssemblerMenu extends AbstractContainerMenu {
     }
 
     private boolean moveSingleItemToAssembler(ItemStack stack) {
-        System.out.println("Move: " + stack);
+        Erstemod.LOGGER.debug("Move: " + stack);
 
         for(int i = TE_INVENTORY_FIRST_SLOT_INDEX;
             i < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT;
             i++) {
 
-            System.out.println("Check Slot: " + i);
+            Erstemod.LOGGER.debug("Check Slot: " + i);
 
             Slot slot = slots.get(i);
 
             if(slot.mayPlace(stack) && !slot.hasItem()) {
-                System.out.println("Found slot");
+                Erstemod.LOGGER.debug("Found slot");
 
                 ItemStack copy = stack.copy();
                 copy.setCount(1);
