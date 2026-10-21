@@ -26,5 +26,10 @@
  "advancements.tutorialmod.cutmeat.description": "Cut Beef on a cutting Board",
  "villager_profession.erstemod.fast_food_worker": "Fast-Food Worker",
  "block.erstemod.assembler" : "Assembler",
- "block.erstemod.assembler.menu" : "Assembler"
+ "block.erstemod.assembler.menu" : "Assembler",
+ "item.erstemod.burger.ingredients": "Ingredients:",
+ "item.erstemod.burger.hunger": "Hunger restored: ",
+ "item.erstemod.burger.saturation": "Saturation modifier: ",
+ "item.erstemod.burger.sauces": "Sauces:",
+ "item.erstemod.burger.none": "none"
 }
