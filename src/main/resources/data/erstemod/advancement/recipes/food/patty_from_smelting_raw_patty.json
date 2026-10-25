@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "erstemod:patty_from_smelting_raw_patty"
+        "recipes": "erstemod:patty_from_smelting_raw_patty"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

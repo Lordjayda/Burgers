@@ -5,6 +5,8 @@ import net.lordjayda.erstemod.block.entity.custom.AssemblerBlockEntity;
 import net.lordjayda.erstemod.menu.custom.AssemblerMenu;
 import net.lordjayda.erstemod.menu.custom.AssemblerScreen;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -34,16 +36,11 @@ public class Assembler extends BaseEntityBlock {
             // Große Tischplatte
             Block.box(3, 9, 3, 13, 10, 13)
     );
-    private static MapCodec<Assembler> CODEC = simpleCodec(Assembler::new);
 
     public Assembler(Properties properties) {
         super(properties);
     }
 
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
-    }
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
@@ -56,7 +53,7 @@ public class Assembler extends BaseEntityBlock {
     }
 
     @Override
-    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state,
+    public void playerDestroy(ServerLevel level, ServerPlayer player, BlockPos pos, BlockState state,
                               @Nullable BlockEntity blockEntity, ItemStack destroyedWith) {
         if(level.getBlockEntity(pos) instanceof AssemblerBlockEntity pedestalBlockEntity) {
             pedestalBlockEntity.drops();

@@ -1,0 +1,5 @@
+// 26.3	-999999999-01-01T00:00:00	Burgers/Block Loot Tables
+f2fe17b3b7442772bca48f79b1ca3074ddbccd73 data/erstemod/loot_table/blocks/assembler.json
+8e1125a01b92bb656f090c35eb361c3c63a51022 data/erstemod/loot_table/blocks/cutting_board.json
+b2e9f96f953b3d8022fd20b8053d96dcb5652a90 data/erstemod/loot_table/blocks/lettuce_headcrop.json
+5257459e087e1a5e19e04363ad40b07d7cf21454 data/erstemod/loot_table/blocks/tomatocrop.json
