@@ -22,8 +22,8 @@ public class ModVillagerTrades {
 
 
     public static void bootstrap(BootstrapContext<VillagerTrade> context) {
-        context.register(FAST_FOOD_WOKER_1_lettuce_seed, new VillagerTrade(new TradeCost(Items.EMERALD, 4), new ItemStackTemplate(ModItems.LETTUCE_SEED), 12,4,0.05f, Optional.empty(), List.of()));
-        context.register(FAST_FOOD_WOKER_1_tomato_seed, new VillagerTrade(new TradeCost(Items.EMERALD, 4), new ItemStackTemplate(ModItems.TOMATO_SEED), 12,4,0.05f, Optional.empty(), List.of()));
+        context.register(FAST_FOOD_WOKER_1_lettuce_seed, VillagerTrade.builder(new TradeCost(Items.EMERALD, 4), new ItemStackTemplate(ModItems.LETTUCE_SEED, 12),4, 1, 1).build());
+        context.register(FAST_FOOD_WOKER_1_tomato_seed, VillagerTrade.builder(new TradeCost(Items.EMERALD, 4), new ItemStackTemplate(ModItems.TOMATO_SEED, 12),4, 1, 1).build());            ;
     }
 
 

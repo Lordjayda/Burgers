@@ -1,5 +1,7 @@
 package net.lordjayda.erstemod.datagen;
 
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.lordjayda.erstemod.Erstemod;
 import net.lordjayda.erstemod.block.ModBlocks;
 import net.lordjayda.erstemod.item.ModItems;
@@ -10,32 +12,47 @@ import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.predicates.ItemPredicate;
 import net.minecraft.advancements.triggers.InventoryChangeTrigger;
 import net.minecraft.advancements.triggers.ItemUsedOnLocationTrigger;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.advancements.AdvancementProvider;
 import net.minecraft.data.advancements.AdvancementSubProvider;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.ItemStackTemplate;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-public class ModAdvancementProvider extends AdvancementProvider {
-    public ModAdvancementProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-        super(output, registries, List.of(new ErsteModAdvancements()));
+public class ModAdvancementProvider extends FabricTagsProvider<Advancement> {
+    private HolderLookup.RegistryLookup<?> items;
+    private HolderLookup.RegistryLookup<?> blocks;
+    public ModAdvancementProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+        super(output, Registries.ADVANCEMENT,  registryLookup);
     }
 
-    public static class  ErsteModAdvancements implements AdvancementSubProvider {
+    @Override
+    protected void addTags(HolderLookup.Provider registries) {
+        items = registries.lookupOrThrow(Registries.ITEM);
+        blocks = registries.lookupOrThrow(Registries.BLOCK);
+    }
+
+ /*   public static class ErsteModAdvancements extends AdvancementSubProvider {
+
+        protected ErsteModAdvancements(BootstrapContext<Advancement> output) {
+            super(output);
+        }
 
         @Override
-        public void generate(HolderLookup.Provider registries, Consumer<AdvancementHolder> output) {
-            var items = registries.lookupOrThrow(Registries.ITEM);
-            var blocks = registries.lookupOrThrow(Registries.BLOCK);
+        public void generate() {
 
-           /* AdvancementHolder root = Advancement.Builder.advancement().display(
-                    ModBlocks.CUTTING_BOARD,
+
+           AdvancementHolder root = Advancement.Builder.advancement().rootDisplay(
+                    ModBlocks.CUTTING_BOARD.asItem(),
                     Component.translatable( "advancement.erstemod.root.title"),
                     Component.translatable( "advancement.erstemod.root.description"),
                     Identifier.withDefaultNamespace("gui/advancements/backgrounds/adventure"),
@@ -46,7 +63,7 @@ public class ModAdvancementProvider extends AdvancementProvider {
 
             AdvancementHolder plantSeed = Advancement.Builder.advancement()
                     .parent(root)
-                    .display(
+                    .rootDisplay(
                             ModItems.LETTUCE_SEED,
                             Component.translatable("advancements.tutorialmod.plant_custom.title"),
                             Component.translatable("advancements.tutorialmod.plant_custom.description"),
@@ -110,8 +127,11 @@ public class ModAdvancementProvider extends AdvancementProvider {
                     .requirements(AdvancementRequirements.Strategy.OR)
                     .addCriterion("LETTUCE", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.PATTY))
                     .save(output, Erstemod.MOD_ID + ":erstemod/cookmeat");
-            */
 
         }
+
     }
+
+  */
 }
+

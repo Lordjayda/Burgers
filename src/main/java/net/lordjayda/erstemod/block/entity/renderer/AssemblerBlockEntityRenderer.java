@@ -73,7 +73,7 @@ public class AssemblerBlockEntityRenderer implements BlockEntityRenderer<Cutting
         poseStack.pushPose();
 
         poseStack.translate(0.5f, 0.0f, 0.5f);
-        poseStack.mulPose(Axis.YP.rotationDegrees(getRotationDegrees(state.facing)));
+        poseStack.rotate(Axis.YP.rotationDegrees(getRotationDegrees(state.facing)));
         poseStack.translate(-0.3f, 0.25f, -0.3f);
         poseStack.scale(0.55f, 0.55f, 0.55f);
 

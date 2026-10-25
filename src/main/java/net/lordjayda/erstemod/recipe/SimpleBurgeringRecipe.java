@@ -35,7 +35,7 @@ public class SimpleBurgeringRecipe implements BurgeringRecipe {
                     Ingredient.CODEC.listOf().fieldOf("sauces").forGetter(SimpleBurgeringRecipe::getSauces),
                     Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(SimpleBurgeringRecipe::getIngredients),
                     ItemStackTemplate.CODEC.fieldOf("result").forGetter(r -> r.result),
-                    Recipe.CommonInfo.MAP_CODEC.forGetter(r -> r.commonInfo)
+                    CommonInfo.MAP_CODEC.forGetter(r -> r.commonInfo)
             ).apply(instance, SimpleBurgeringRecipe::new)
     );
     //smth smth networking smth
@@ -44,12 +44,12 @@ public class SimpleBurgeringRecipe implements BurgeringRecipe {
             Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), SimpleBurgeringRecipe::getSauces,
             Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), SimpleBurgeringRecipe::getIngredients,
             ItemStackTemplate.STREAM_CODEC, r -> r.result,
-            Recipe.CommonInfo.STREAM_CODEC, r -> r.commonInfo,
+            CommonInfo.STREAM_CODEC, r -> r.commonInfo,
             SimpleBurgeringRecipe::new
     );
 
     public SimpleBurgeringRecipe(List<Ingredient> buns, List<Ingredient> sauces, List<Ingredient> ingredients,
-                              ItemStackTemplate result, Recipe.CommonInfo common) {
+                              ItemStackTemplate result, CommonInfo common) {
         this.buns = buns;
         this.sauces = sauces;
         this.ingredients = ingredients;

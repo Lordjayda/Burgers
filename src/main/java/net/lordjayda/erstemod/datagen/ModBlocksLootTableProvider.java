@@ -7,7 +7,11 @@ import net.lordjayda.erstemod.block.custom.LettuceCropBlock;
 import net.lordjayda.erstemod.item.ModItems;
 import net.minecraft.advancements.predicates.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionTypes;
+import net.minecraft.world.level.storage.loot.predicates.MatchBlock;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -21,16 +25,18 @@ public class ModBlocksLootTableProvider extends FabricBlockLootSubProvider {
 
     @Override
     public void generate() {
-       /* dropSelf(ModBlocks.CUTTING_BOARD);
+        dropSelf(ModBlocks.CUTTING_BOARD);
         dropSelf(ModBlocks.ASSEMBLER);
-        this.add(lettuce_headcrop, this.createCropDrops(lettuce_headcrop, ModItems.LETTUCEHEAD, ModItems.LETTUCE_SEED,
-                LootItemBlockStatePropertyCondition.hasBlockStateProperties(lettuce_headcrop)
-                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(LettuceCropBlock.AGE, LettuceCropBlock.MAX_AGE))));
-        this.add(tomatocrop, this.createCropDrops(tomatocrop, ModItems.TOMATO, ModItems.TOMATO_SEED,
-                LootItemBlockStatePropertyCondition.hasBlockStateProperties(tomatocrop)
-                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(LettuceCropBlock.AGE, LettuceCropBlock.MAX_AGE))
-        ));
+        LootItemCondition.Builder isLettuceMaxAge = MatchBlock.blockMatches(
+                this.blocks, lettuce_headcrop, StatePropertiesPredicate.Builder.properties().hasProperty(LettuceCropBlock.AGE, LettuceCropBlock.MAX_AGE)
+        );
 
-        */
+        LootItemCondition.Builder isTomatoMaxAge = MatchBlock.blockMatches(
+                this.blocks, tomatocrop, StatePropertiesPredicate.Builder.properties().hasProperty(LettuceCropBlock.AGE, LettuceCropBlock.MAX_AGE)
+        );
+        this.add(lettuce_headcrop, this.createCropDrops(lettuce_headcrop, ModItems.LETTUCEHEAD, ModItems.LETTUCE_SEED, isLettuceMaxAge));
+
+        this.add(tomatocrop, this.createCropDrops(tomatocrop, ModItems.TOMATO, ModItems.TOMATO_SEED, isTomatoMaxAge));
+
     }
 }

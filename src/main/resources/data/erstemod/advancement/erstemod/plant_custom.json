@@ -2,26 +2,30 @@
   "parent": "erstemod:erstemod/root",
   "criteria": {
     "LETTUCE": {
+      "trigger": "minecraft:placed_block",
       "conditions": {
-        "location": [
-          {
-            "block": "erstemod:lettuce_headcrop",
-            "condition": "minecraft:block_state_property"
+        "location": {
+          "type": "minecraft:location_check",
+          "predicate": {
+            "block": {
+              "blocks": "erstemod:lettuce_headcrop"
+            }
           }
-        ]
-      },
-      "trigger": "minecraft:placed_block"
+        }
+      }
     },
     "tomato": {
+      "trigger": "minecraft:placed_block",
       "conditions": {
-        "location": [
-          {
-            "block": "erstemod:tomatocrop",
-            "condition": "minecraft:block_state_property"
+        "location": {
+          "type": "minecraft:location_check",
+          "predicate": {
+            "block": {
+              "blocks": "erstemod:tomatocrop"
+            }
           }
-        ]
-      },
-      "trigger": "minecraft:placed_block"
+        }
+      }
     }
   },
   "display": {

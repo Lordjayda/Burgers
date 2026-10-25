@@ -8,8 +8,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -37,7 +39,6 @@ import java.util.Map;
 
 public class CuttingBoard extends BaseEntityBlock {
 
-    private static final MapCodec<CuttingBoard> CODEC= simpleCodec(CuttingBoard::new);
 
     public static final Map<Direction, VoxelShape> SHAPES = Map.of(
             Direction.NORTH, Shapes.or(
@@ -87,11 +88,6 @@ public class CuttingBoard extends BaseEntityBlock {
 
     public CuttingBoard(Properties properties) {
         super(properties);
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Override
@@ -163,13 +159,13 @@ public class CuttingBoard extends BaseEntityBlock {
                             if (item.type == 0) {
                                 resultStack = item.output;
                                 if (!player.getInventory().add(resultStack)) {
-                                    player.drop(resultStack, false);
+                                    player.drop(resultStack, false, Prediction.PREDICTED);
                                 }
                                 success = true;
                             } else if (item.type == 1) {
                                 for (ItemStack stack : item.outputM) {
                                     if (!player.getInventory().add(stack)) {
-                                        player.drop(stack, false);
+                                        player.drop(stack, false, Prediction.PREDICTED);
                                     }
                                 }
                                 success = true;
@@ -185,7 +181,7 @@ public class CuttingBoard extends BaseEntityBlock {
                     cuttingBoardBlockEntity.clearContent();
 
                     if (!player.getInventory().add(stackOnCuttingBoard)) {
-                        player.drop(stackOnCuttingBoard, false);
+                        player.drop(stackOnCuttingBoard, false, Prediction.PREDICTED);
                     }
                 }
             }
@@ -212,7 +208,7 @@ public class CuttingBoard extends BaseEntityBlock {
     }
 
     @Override
-    public void playerDestroy(Level level, Player player,
+    public void playerDestroy(ServerLevel level, ServerPlayer player,
                               BlockPos pos, BlockState state,
                               @Nullable BlockEntity blockEntity,
                               ItemStack destroyedWith) {

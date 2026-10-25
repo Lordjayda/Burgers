@@ -35,10 +35,10 @@ public class ModBlocks {
 
     public static final Block lettuce_headcrop =registerBlock("lettuce_headcrop",
             properties -> new LettuceCropBlock(properties.noCollision().randomTicks().instabreak().sound(SoundType.CROP)
-                    .pushReaction(PushReaction.DESTROY)));
+                    .pushReaction(PushReaction.POPPED)));
     public static final Block tomatocrop =registerBlock("tomatocrop",
             properties -> new TomatoCropBlock(properties.noCollision().randomTicks().instabreak().sound(SoundType.CROP)
-                    .pushReaction(PushReaction.DESTROY)));
+                    .pushReaction(PushReaction.POPPED)));
 // das kopieren für neuen block
 
     private static Block registerBlock(String name, Function<BlockBehaviour.Properties, Block> function){
