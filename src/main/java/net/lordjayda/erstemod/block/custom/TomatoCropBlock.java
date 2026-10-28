@@ -14,12 +14,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class TomatoCropBlock extends CropBlock {
 
-    public static final int MAX_AGE = 1;
+    public static final int MAX_AGE = 3;
     public static final IntegerProperty AGE = IntegerProperty.create( "age", 0, MAX_AGE);
-    private static final VoxelShape[] SHAPES = {
-            Block.box(7, 0, 5, 10, 15, 9),
-            Block.box(6, 0, 5, 10, 15, 9)
-    };
+    private static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 10, 12);
+
 
     public TomatoCropBlock(Properties properties) {
         super(properties);
@@ -47,7 +45,7 @@ public class TomatoCropBlock extends CropBlock {
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPES[state.getValue(AGE)];
+        return SHAPE;
     }
 
 }

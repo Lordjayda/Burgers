@@ -5,6 +5,12 @@
     },
     "age=1": {
       "model": "erstemod:block/tomatocrop_stage1"
+    },
+    "age=2": {
+      "model": "erstemod:block/tomatocrop_stage2"
+    },
+    "age=3": {
+      "model": "erstemod:block/tomatocrop_stage3"
     }
   }
 }
