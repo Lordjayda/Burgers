@@ -20,16 +20,17 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"net.lordjayda.burbers.Burbers"
+			"net.lordjayda.erstemod.Erstemod"
 		],
 		"client": [
-			"net.lordjayda.burbers.BurbersClient"
+			"net.lordjayda.erstemod.ErstemodClient"
 		],
 		"fabric-datagen": [
-			"net.lordjayda.burbers.BurbersDataGenerator"
+			"net.lordjayda.erstemod.ErstemodDataGenerator"
 		]
 	},
-	"mixins": [],
+	"mixins": [
+		"erstemod.mixins.json"	],
 	"depends": {
 		"fabricloader": ">=0.19.3",
 		"minecraft": "~26.3",
