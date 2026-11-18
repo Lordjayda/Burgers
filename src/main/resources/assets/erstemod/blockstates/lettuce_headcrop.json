@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "erstemod:block/lettuce_headcrop_stage0"
+    },
+    "age=1": {
+      "model": "erstemod:block/lettuce_headcrop_stage1"
+    },
+"age=2": {
+      "model": "erstemod:block/lettuce_headcrop_stage2"
+    },
+"age=3": {
+      "model": "erstemod:block/lettuce_headcrop_stage3"
+    }
+  }
+}

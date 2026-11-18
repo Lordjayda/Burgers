@@ -1,0 +1,32 @@
+{
+  "parent": "erstemod:erstemod/plant_custom",
+  "criteria": {
+    "LETTUCE": {
+      "conditions": {
+        "items": [
+          {
+            "items": "erstemod:lettuce_head"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.tutorialmod.harvestcutsomplant.description"
+    },
+    "icon": {
+      "id": "erstemod:lettuce_head"
+    },
+    "title": {
+      "translate": "advancements.tutorialmod.harvestcutsomplant.title"
+    }
+  },
+  "requirements": [
+    [
+      "LETTUCE"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

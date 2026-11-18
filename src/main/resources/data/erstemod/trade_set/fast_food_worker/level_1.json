@@ -1,0 +1,5 @@
+{
+  "amount": 2.0,
+  "random_sequence": "erstemod:trade_set/fast_food_worker/level_1",
+  "trades": "#erstemod:fast_food_worker/level_1"
+}

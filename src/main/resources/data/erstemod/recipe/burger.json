@@ -1,0 +1,17 @@
+{
+  "type": "erstemod:burgering",
+  "buns": [
+    "erstemod:bottom_bun",
+    "erstemod:top_bun"
+  ],
+  "sauces": [],
+  "ingredients": [
+    "erstemod:tomato_slice",
+    "erstemod:patty",
+    "erstemod:lettuce"
+  ],
+  "result": {
+    "id": "erstemod:burger",
+    "count": 1
+  }
+}

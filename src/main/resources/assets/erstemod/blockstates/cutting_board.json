@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "erstemod:block/cutting_board",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "erstemod:block/cutting_board",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "erstemod:block/cutting_board"
+    },
+    "facing=west": {
+      "model": "erstemod:block/cutting_board",
+      "y": 90
+    }
+  }
+}

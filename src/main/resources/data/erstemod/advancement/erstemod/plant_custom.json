@@ -1,0 +1,49 @@
+{
+  "parent": "erstemod:erstemod/root",
+  "criteria": {
+    "LETTUCE": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "location": {
+          "type": "minecraft:location_check",
+          "predicate": {
+            "block": {
+              "blocks": "erstemod:lettuce_headcrop"
+            }
+          }
+        }
+      }
+    },
+    "tomato": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "location": {
+          "type": "minecraft:location_check",
+          "predicate": {
+            "block": {
+              "blocks": "erstemod:tomatocrop"
+            }
+          }
+        }
+      }
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.tutorialmod.plant_custom.description"
+    },
+    "icon": {
+      "id": "erstemod:lettuce_seed"
+    },
+    "title": {
+      "translate": "advancements.tutorialmod.plant_custom.title"
+    }
+  },
+  "requirements": [
+    [
+      "LETTUCE",
+      "tomato"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

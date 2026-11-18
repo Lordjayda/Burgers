@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "Burgers",
+  "key": {
+    "R": "minecraft:wheat"
+  },
+  "pattern": [
+    "RR",
+    "RR"
+  ],
+  "result": {
+    "id": "erstemod:bun"
+  }
+}

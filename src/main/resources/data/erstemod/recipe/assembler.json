@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "Burgers",
+  "key": {
+    "B": "minecraft:iron_bars",
+    "C": "minecraft:oak_planks",
+    "D": "minecraft:oak_planks",
+    "E": "minecraft:oak_planks"
+  },
+  "pattern": [
+    " B ",
+    "CDE"
+  ],
+  "result": {
+    "id": "erstemod:assembler"
+  }
+}

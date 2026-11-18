@@ -1,0 +1,14 @@
+{
+  "type": "erstemod:burgering",
+  "buns": [
+    "erstemod:bottom_bun",
+    "erstemod:top_bun"
+  ],
+  "sauces": [],
+  "ingredients": [
+  ],
+  "result": {
+    "id": "erstemod:bun",
+    "count": 1
+  }
+}

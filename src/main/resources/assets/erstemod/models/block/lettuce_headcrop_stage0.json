@@ -1,0 +1,35 @@
+{
+	"format_version": "1.21.11",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"crop": "erstemod:block/lettuce_head_crop_stage0"
+	},
+	"elements": [
+		{
+			"from": [8, 0, 6],
+			"to": [8, 7, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 1, 7]},
+			"faces": {
+				"north": {"uv": [8, 9, 8, 16], "texture": "#crop"},
+				"east": {"uv": [8, 9, 12, 16], "texture": "#crop"},
+				"south": {"uv": [12, 9, 12, 16], "texture": "#crop"},
+				"west": {"uv": [8, 9, 12, 16], "texture": "#crop"},
+				"up": {"uv": [8, 9, 8, 5], "texture": "#crop"},
+				"down": {"uv": [8, 5, 8, 9], "texture": "#crop"}
+			}
+		},
+		{
+			"from": [7, 0, 7],
+			"to": [7, 7, 11],
+			"rotation": {"x": 0, "y": 92.5, "z": 0, "origin": [7, 1, 8]},
+			"faces": {
+				"north": {"uv": [4, 9, 4, 16], "texture": "#crop"},
+				"east": {"uv": [8, 9, 12, 16], "texture": "#crop"},
+				"south": {"uv": [8, 9, 8, 16], "texture": "#crop"},
+				"west": {"uv": [8, 9, 12, 16], "texture": "#crop"},
+				"up": {"uv": [4, 9, 4, 5], "texture": "#crop"},
+				"down": {"uv": [4, 5, 4, 9], "texture": "#crop"}
+			}
+		}
+	]
+}

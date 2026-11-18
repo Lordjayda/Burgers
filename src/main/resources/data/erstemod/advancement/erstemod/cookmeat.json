@@ -1,0 +1,32 @@
+{
+  "parent": "erstemod:erstemod/cutmeat",
+  "criteria": {
+    "LETTUCE": {
+      "conditions": {
+        "items": [
+          {
+            "items": "erstemod:patty"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.tutorialmod.cookmeat.description"
+    },
+    "icon": {
+      "id": "erstemod:patty"
+    },
+    "title": {
+      "translate": "advancements.tutorialmod.cookmeat.title"
+    }
+  },
+  "requirements": [
+    [
+      "LETTUCE"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
