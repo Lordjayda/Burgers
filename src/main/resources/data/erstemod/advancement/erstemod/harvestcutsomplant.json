@@ -5,7 +5,8 @@
       "conditions": {
         "items": [
           {
-            "items": "erstemod:lettuce_head"
+            "items": "erstemod:lettuce_head",
+            "items": "erstemod:tomato"
           }
         ]
       },
